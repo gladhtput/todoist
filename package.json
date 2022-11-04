@@ -1,0 +1,27 @@
+{
+  "name": "mocha-chai-todoist",
+  "version": "1.0.0",
+  "description": "Onboarding project API testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 10000 api/runner/regression-test.js --reporter mochawesome",
+    "test1": "mocha --timeout 10000 api/runner/get-a-project.js --reporter mochawesome",
+    "test2": "mocha --timeout 10000 api/runner/get-all-projects.js --reporter mochawesome",
+    "test3": "mocha --timeout 10000 api/runner/create-a-new-project.js --reporter mochawesome",
+    "test4": "mocha --timeout 10000 api/runner/update-a-project.js --reporter mochawesome",
+    "test5": "mocha --timeout 10000 api/runner/delete-a-project.js --reporter mochawesome",
+    "reports": "open 'reports/mochawesome/mochawesome.html'"
+  },
+  "author": "gladhtput",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "chai": "^4.3.3",
+    "chai-http": "^4.3.0",
+    "chai-json-schema": "^1.5.1",
+    "dotenv": "^16.0.0",
+    "mocha": "^10.0.0",
+    "mochawesome": "^7.0.0",
+    "supertest": "^6.3.0"
+  }
+}
