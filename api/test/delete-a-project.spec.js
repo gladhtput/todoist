@@ -1,3 +1,4 @@
+require('dotenv').config()
 const chai = require('chai')
 const project = require('../../api/runner/delete-a-project.js')
 // const data = require('../../api/data/delete-a-project.json')
@@ -6,13 +7,14 @@ chai.use(require('chai-http'))
 chai.use(require('chai-json-schema'))
 
 module.exports = function(){
-    describe('Delete a project', () => {
-        token = "7bdfa8de79ed4b312be8d25a73618cbff307103c";
+    describe('Delete a project', () => {       
+        valid_id = "2301785184";
+        invalid_id = "2301785";
 
         it('Using token and invalid id', (done) => {
-            let api = chai.request('https://api.todoist.com/rest/v2');
-            api.delete(`/projects/2301727`)            
-            .set("Authorization", "Bearer " + token)                   
+            let api = chai.request(process.env.API_URL);
+            api.delete(`/projects/` + invalid_id)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .end(function(err, res){            
                 expect(res.statusCode).to.equal(204);                
                 done();
@@ -20,8 +22,8 @@ module.exports = function(){
         })
 
         it('Without token but using valid id', (done) => {
-            let api = chai.request('https://api.todoist.com/rest/v2');
-            api.delete(`/projects/2301777417`)            
+            let api = chai.request(process.env.API_URL);
+            api.delete(`/projects/` + valid_id)
             .end(function(err, res){            
                 expect(res.statusCode).to.equal(401);                
                 done();
@@ -29,9 +31,9 @@ module.exports = function(){
         })
 
         it('Using token and valid id', (done) => {
-            let api = chai.request('https://api.todoist.com/rest/v2');
-            api.delete(`/projects/2301777417`)
-            .set("Authorization", "Bearer " + token)                     
+            let api = chai.request(process.env.API_URL);
+            api.delete(`/projects/` + valid_id)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .end(function(err, res){            
                 expect(res.statusCode).to.equal(204);                
                 done();

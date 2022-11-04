@@ -1,3 +1,4 @@
+require('dotenv').config()
 const {faker} = require('@faker-js/faker')
 const chai = require('chai')
 const project = require('../../api/runner/update-a-project.js')
@@ -7,17 +8,18 @@ chai.use(require('chai-http'))
 chai.use(require('chai-json-schema'))
 
 module.exports = function(){
-    describe('Update a project', () => {
-        token = "7bdfa8de79ed4b312be8d25a73618cbff307103c";
+    describe('Update a project', () => {        
         const project_name =  faker.commerce.productName();
+        valid_id = "2301777036";
+        invalid_id = "2301777";
 
         it('Using invalid token', (done) => {            
-            let api = chai.request('https://api.todoist.com/rest/v2');
-            api.post(`/projects/2301777036`)            
+            let api = chai.request(process.env.API_URL);
+            api.post(`/projects/` + valid_id)
             .type('form')
             .send({
                 name : project_name,
-                color : 'grape',
+                color : 'grey',
                 is_favorite : 'true'
             })                     
             .end(function(err, res){            
@@ -27,13 +29,13 @@ module.exports = function(){
         })
 
         it('Using token and invalid project', (done) => {            
-            let api = chai.request('https://api.todoist.com/rest/v2');
-            api.post(`/projects/2301777`)         
-            .set("Authorization", "Bearer " + token)
+            let api = chai.request(process.env.API_URL);
+            api.post(`/projects/` + invalid_id)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({
                 name : project_name,
-                color : 'grape',
+                color : 'grey',
                 is_favorite : 'true'
             })                     
             .end(function(err, res){            
@@ -43,14 +45,12 @@ module.exports = function(){
         })
 
         it('Using token and name', (done) => {            
-            let api = chai.request('https://api.todoist.com/rest/v2');
-            api.post(`/projects/2301777036`)            
-            .set("Authorization", "Bearer " + token)
+            let api = chai.request(process.env.API_URL);
+            api.post(`/projects/` + valid_id)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({
-                name : project_name,
-                // color : 'grape',
-                // is_favorite : 'true'
+                name : project_name,                
             })                     
             .end(function(err, res){            
                 expect(res.statusCode).to.equal(200);
@@ -61,13 +61,11 @@ module.exports = function(){
         })
 
         it('Using token and favorite', (done) => {            
-            let api = chai.request('https://api.todoist.com/rest/v2');
-            api.post(`/projects/2301777036`)            
-            .set("Authorization", "Bearer " + token)
+            let api = chai.request(process.env.API_URL);
+            api.post(`/projects/` + valid_id)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
-            .send({
-                // name : project_name,
-                // color : 'grape',
+            .send({                
                 is_favorite : 'true'
             })                     
             .end(function(err, res){            
@@ -79,25 +77,25 @@ module.exports = function(){
         })
 
         it('Using token and valid color', (done) => {            
-            let api = chai.request('https://api.todoist.com/rest/v2');
-            api.post(`/projects/2301777036`)            
-            .set("Authorization", "Bearer " + token)
+            let api = chai.request(process.env.API_URL);
+            api.post(`/projects/` + valid_id)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({                
-                color : 'grape',                
+                color : 'grey',                
             })                     
             .end(function(err, res){            
                 expect(res.statusCode).to.equal(200);
                 expect(res.body).to.be.jsonSchema(data);
-                expect(res.body.color).to.equal("grape");
+                expect(res.body.color).to.equal("grey");
                 done();
            })
         })
 
         it('Using token and invalid color', (done) => {            
-            let api = chai.request('https://api.todoist.com/rest/v2');
-            api.post(`/projects/2301777036`)
-            .set("Authorization", "Bearer " + token)
+            let api = chai.request(process.env.API_URL);
+            api.post(`/projects/` + valid_id)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({                
                 color : 'black'
