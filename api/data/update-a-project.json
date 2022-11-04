@@ -1,0 +1,67 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome4",
+    "definitions": {
+        "Welcome4": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "parent_id": {
+                    "type": "null"
+                },
+                "order": {
+                    "type": "integer"
+                },
+                "color": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "comment_count": {
+                    "type": "integer"
+                },
+                "is_shared": {
+                    "type": "boolean"
+                },
+                "is_favorite": {
+                    "type": "boolean"
+                },
+                "is_inbox_project": {
+                    "type": "boolean"
+                },
+                "is_team_inbox": {
+                    "type": "boolean"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "view_style": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "color",
+                "comment_count",
+                "id",
+                "is_favorite",
+                "is_inbox_project",
+                "is_shared",
+                "is_team_inbox",
+                "name",
+                "order",
+                "parent_id",
+                "url",
+                "view_style"
+            ],
+            "title": "Welcome4"
+        }
+    }
+}
