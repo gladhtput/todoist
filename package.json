@@ -5,12 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --timeout 10000 api/runner/regression-test.js --reporter mochawesome",
-    "test1": "mocha --timeout 10000 api/runner/get-a-project.js --reporter mochawesome",
-    "test2": "mocha --timeout 10000 api/runner/get-all-projects.js --reporter mochawesome",
-    "test3": "mocha --timeout 10000 api/runner/create-a-new-project.js --reporter mochawesome",
-    "test4": "mocha --timeout 10000 api/runner/update-a-project.js --reporter mochawesome",
-    "test5": "mocha --timeout 10000 api/runner/delete-a-project.js --reporter mochawesome",
-    "reports": "open 'reports/mochawesome/mochawesome.html'"
+    "test-get-one-project": "mocha --timeout 10000 api/runner/get-a-project.js --reporter mochawesome",
+    "test-get-all-projects": "mocha --timeout 10000 api/runner/get-all-projects.js --reporter mochawesome",
+    "test-create-project": "mocha --timeout 10000 api/runner/create-a-new-project.js --reporter mochawesome",
+    "test-update-project": "mocha --timeout 10000 api/runner/update-a-project.js --reporter mochawesome",
+    "test-delete-project": "mocha --timeout 10000 api/runner/delete-a-project.js --reporter mochawesome"  
   },
   "author": "gladhtput",
   "license": "ISC",

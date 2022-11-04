@@ -1,8 +1,11 @@
 {
-    "$schema": "http://json-schema.org/draft-06/schema#",        
-    "$ref": "#/definitions/Welcome4Element",
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/Welcome6Element"
+    },
     "definitions": {
-        "Welcome4Element": {
+        "Welcome6Element": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -61,7 +64,7 @@
                 "url",
                 "view_style"
             ],
-            "title": "Welcome4Element"
+            "title": "Welcome6Element"
         }
     }
 }

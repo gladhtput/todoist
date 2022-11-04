@@ -1,3 +1,4 @@
+require('dotenv').config()
 const {faker} = require('@faker-js/faker')
 const chai = require('chai')
 const project = require('../../api/runner/create-a-new-project.js')
@@ -7,14 +8,13 @@ chai.use(require('chai-http'))
 chai.use(require('chai-json-schema'))
 
 module.exports = function(){
-    describe('Create a new project', () => {
-        token = "7bdfa8de79ed4b312be8d25a73618cbff307103c";        
+    describe('Create a new project', () => {              
 
         it('Using token and name', (done) => {
             const project_name =  faker.commerce.productName();
-            let api = chai.request('https://api.todoist.com/rest/v2');
+            let api = chai.request(process.env.API_URL);
             api.post(`/projects`)            
-            .set("Authorization", "Bearer " + token)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({
                 name : project_name
@@ -29,7 +29,7 @@ module.exports = function(){
 
         it('Without token', (done) => {
             const project_name =  faker.commerce.productName();
-            let api = chai.request('https://api.todoist.com/rest/v2');
+            let api = chai.request(process.env.API_URL);
             api.post(`/projects`)            
             .type('form')
             .send({
@@ -43,9 +43,9 @@ module.exports = function(){
         
         it('Using token, name, and color', (done) => {
             const project_name =  faker.commerce.productName();
-            let api = chai.request('https://api.todoist.com/rest/v2');
+            let api = chai.request(process.env.API_URL);
             api.post(`/projects`)            
-            .set("Authorization", "Bearer " + token)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({
                 name : project_name,
@@ -62,9 +62,9 @@ module.exports = function(){
         
         it('Using token, name, and favorite', (done) => {
             const project_name =  faker.commerce.productName();
-            let api = chai.request('https://api.todoist.com/rest/v2');
+            let api = chai.request(process.env.API_URL);
             api.post(`/projects`)            
-            .set("Authorization", "Bearer " + token)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({
                 name : project_name,
@@ -81,9 +81,9 @@ module.exports = function(){
         
         it('Using token, name, color, and favorite', (done) => {
             const project_name =  faker.commerce.productName();
-            let api = chai.request('https://api.todoist.com/rest/v2');
+            let api = chai.request(process.env.API_URL);
             api.post(`/projects`)            
-            .set("Authorization", "Bearer " + token)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({
                 name : project_name,
@@ -101,9 +101,9 @@ module.exports = function(){
         
         it('Using token, name, and invalid color', (done) => {
             const project_name =  faker.commerce.productName();
-            let api = chai.request('https://api.todoist.com/rest/v2');
+            let api = chai.request(process.env.API_URL);
             api.post(`/projects`)            
-            .set("Authorization", "Bearer " + token)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({
                 name : project_name,
@@ -116,9 +116,9 @@ module.exports = function(){
         })
         
         it('Using token, color, and favorite without name', (done) => {            
-            let api = chai.request('https://api.todoist.com/rest/v2');
+            let api = chai.request(process.env.API_URL);
             api.post(`/projects`)            
-            .set("Authorization", "Bearer " + token)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({                
                 color : 'grape',
@@ -132,9 +132,9 @@ module.exports = function(){
 
         it('Project number limit reached with number of existing project is 7', (done) => {
             const project_name =  faker.commerce.productName();
-            let api = chai.request('https://api.todoist.com/rest/v2');
+            let api = chai.request(process.env.API_URL);
             api.post(`/projects`)            
-            .set("Authorization", "Bearer " + token)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
             .type('form')
             .send({
                 name : project_name,
