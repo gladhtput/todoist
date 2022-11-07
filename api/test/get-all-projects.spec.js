@@ -25,8 +25,7 @@ module.exports = function(){
             .end(function(err, res){            
                 expect(res.statusCode).to.equal(200);
                 expect(res.body).to.be.jsonSchema(data);
-                global.valid_id = res.body[-1].id;
-                expect(res.body[2].id).to.equal(200);
+                global.valid_id = res.body[2].id;                
                 done();
            })
         })
