@@ -8,8 +8,7 @@ chai.use(require('chai-http'))
 chai.use(require('chai-json-schema'))
 
 module.exports = function(){
-    describe('Create a new project', () => {              
-
+    describe('Create a new project', () => {
         it('Using token and name', (done) => {
             const project_name =  faker.commerce.productName();
             let api = chai.request(process.env.API_URL);
@@ -37,6 +36,7 @@ module.exports = function(){
             })                     
             .end(function(err, res){            
                 expect(res.statusCode).to.equal(401);
+                expect(res.text).to.equal('Forbidden');
                 done();
            })
         })
@@ -55,7 +55,7 @@ module.exports = function(){
                 expect(res.statusCode).to.equal(200);
                 expect(res.body).to.be.jsonSchema(data);
                 expect(res.body.name).to.equal(project_name);
-                expect(res.body.color).to.equal("grape");                              
+                expect(res.body.color).to.equal("grape");                
                 done();
            })
         })
@@ -74,7 +74,7 @@ module.exports = function(){
                 expect(res.statusCode).to.equal(200);
                 expect(res.body).to.be.jsonSchema(data);
                 expect(res.body.name).to.equal(project_name);                
-                expect(res.body.is_favorite).to.equal(true);
+                expect(res.body.is_favorite).to.equal(true);                
                 done();
            })
         })
@@ -94,7 +94,7 @@ module.exports = function(){
                 expect(res.statusCode).to.equal(200);
                 expect(res.body).to.be.jsonSchema(data);
                 expect(res.body.color).to.equal("grape");
-                expect(res.body.is_favorite).to.equal(true);
+                expect(res.body.is_favorite).to.equal(true);                
                 done();
            })
         })
@@ -110,7 +110,8 @@ module.exports = function(){
                 color : 'black',           
             })                     
             .end(function(err, res){            
-                expect(res.statusCode).to.equal(400);            
+                expect(res.statusCode).to.equal(400);
+                expect(res.text).to.equal('Color format is not valid');            
                 done();
            })
         })
@@ -125,7 +126,8 @@ module.exports = function(){
                 is_favorite : 'true'
             })                     
             .end(function(err, res){            
-                expect(res.statusCode).to.equal(400);                
+                expect(res.statusCode).to.equal(400);
+                expect(res.text).to.equal('Name must be provided for the project creation');                
                 done();
            })
         })
@@ -142,7 +144,8 @@ module.exports = function(){
                 is_favorite : 'true'
             })                     
             .end(function(err, res){            
-                expect(res.statusCode).to.equal(403);                
+                expect(res.statusCode).to.equal(403);
+                expect(res.text).to.equal('Maximum number of projects per user limit reached');                
                 done();
            })
         })

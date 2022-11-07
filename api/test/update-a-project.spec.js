@@ -9,11 +9,18 @@ chai.use(require('chai-json-schema'))
 
 module.exports = function(){
     describe('Update a project', () => {        
-        const project_name =  faker.commerce.productName();
-        if(global.valid_id == null){
-            global.valid_id = "2301777036";
-        }
+        const project_name =  faker.commerce.productName();        
         invalid_id = "2301777";
+
+        before('Getting an id', (done) => {
+            let api = chai.request(process.env.API_URL);
+            api.get(`/projects`)
+            .set("Authorization", "Bearer " + process.env.TOKEN)
+            .end(function(err, res){                
+                global.valid_id = res.body[2].id;
+                done();
+            })
+        })
 
         it('Using invalid token', (done) => {            
             let api = chai.request(process.env.API_URL);
@@ -25,7 +32,8 @@ module.exports = function(){
                 is_favorite : 'true'
             })                     
             .end(function(err, res){            
-                expect(res.statusCode).to.equal(401);                
+                expect(res.statusCode).to.equal(401);
+                expect(res.text).to.equal('Forbidden');                
                 done();
            })
         })
@@ -41,7 +49,8 @@ module.exports = function(){
                 is_favorite : 'true'
             })                     
             .end(function(err, res){            
-                expect(res.statusCode).to.equal(404);            
+                expect(res.statusCode).to.equal(404);
+                expect(res.text).to.equal('Project not found');            
                 done();
            })
         })
@@ -87,7 +96,7 @@ module.exports = function(){
                 color : 'grey',                
             })                     
             .end(function(err, res){            
-                expect(res.statusCode).to.equal(200);
+                expect(res.statusCode).to.equal(200);                
                 expect(res.body).to.be.jsonSchema(data);
                 expect(res.body.color).to.equal("grey");
                 done();
@@ -104,6 +113,7 @@ module.exports = function(){
             })                     
             .end(function(err, res){            
                 expect(res.statusCode).to.equal(400);
+                expect(res.text).to.equal('Color format is not valid');
                 done();
            })
         })                

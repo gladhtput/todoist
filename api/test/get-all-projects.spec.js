@@ -7,13 +7,13 @@ chai.use(require('chai-http'))
 chai.use(require('chai-json-schema'))
 
 module.exports = function(){
-    describe('Get all project', () => {                
-
+    describe('Get all project', () => {
         it('Without token', (done) => {
             let api = chai.request(process.env.API_URL);
             api.get(`/projects`)
             .end(function(err, res){            
-                expect(res.statusCode).to.equal(401);                
+                expect(res.statusCode).to.equal(401);
+                expect(res.text).to.equal('Forbidden');
                 done();
            })
         })
@@ -24,8 +24,7 @@ module.exports = function(){
             .set("Authorization", "Bearer " + process.env.TOKEN)
             .end(function(err, res){            
                 expect(res.statusCode).to.equal(200);
-                expect(res.body).to.be.jsonSchema(data);
-                global.valid_id = res.body[2].id;                
+                expect(res.body).to.be.jsonSchema(data);                
                 done();
            })
         })
