@@ -1,5 +1,5 @@
-require('../runner/get-a-project.js')()
-require('../runner/get-all-projects.js')()
 require('../runner/create-a-new-project.js')()
+require('../runner/get-all-projects.js')()
+require('../runner/get-a-project.js')()
 require('../runner/update-a-project.js')()
 require('../runner/delete-a-project.js')()
