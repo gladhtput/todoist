@@ -38,8 +38,7 @@ module.exports = function(){
             .set("Authorization", "Bearer " + process.env.TOKEN)
             .end(function(err, res){                
                 expect(res.statusCode).to.equal(200);
-                expect(res.body).to.be.jsonSchema(data);
-                expect(res.body.id).to.equal(200);
+                expect(res.body).to.be.jsonSchema(data);                
                 done();
            })
         })
