@@ -4,11 +4,13 @@ const project = require('../../api/runner/get-a-project.js')
 const data = require('../../api/data/get-a-project.json')
 const expect = require('chai').expect
 chai.use(require('chai-http'))
-chai.use(require('chai-json-schema'))
+chai.use(require('chai-json-schema'))        
 
 module.exports = function(){
-    describe('Get a project', () => {        
-        valid_id = "2301725310";
+    describe('Get a project', () => {
+        if(global.valid_id == null){
+            global.valid_id = "2301777036";
+        }
         invalid_id = "2301725";
 
         it('Using token and invalid id', (done) => {
@@ -34,9 +36,10 @@ module.exports = function(){
             let api = chai.request(process.env.API_URL);
             api.get(`/projects/` + valid_id)
             .set("Authorization", "Bearer " + process.env.TOKEN)
-            .end(function(err, res){            
+            .end(function(err, res){                
                 expect(res.statusCode).to.equal(200);
                 expect(res.body).to.be.jsonSchema(data);
+                expect(res.body.id).to.equal(200);
                 done();
            })
         })

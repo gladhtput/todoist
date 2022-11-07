@@ -7,8 +7,10 @@ chai.use(require('chai-http'))
 chai.use(require('chai-json-schema'))
 
 module.exports = function(){
-    describe('Delete a project', () => {       
-        valid_id = "2301785184";
+    describe('Delete a project', () => {
+        if(global.valid_id == null){
+            global.valid_id = "2301777036";
+        }        
         invalid_id = "2301785";
 
         it('Using token and invalid id', (done) => {

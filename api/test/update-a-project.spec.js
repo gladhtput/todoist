@@ -10,7 +10,9 @@ chai.use(require('chai-json-schema'))
 module.exports = function(){
     describe('Update a project', () => {        
         const project_name =  faker.commerce.productName();
-        valid_id = "2301777036";
+        if(global.valid_id == null){
+            global.valid_id = "2301777036";
+        }
         invalid_id = "2301777";
 
         it('Using invalid token', (done) => {            
